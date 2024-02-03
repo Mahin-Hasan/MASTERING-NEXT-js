@@ -8,10 +8,10 @@ const Counter = () => {
 
     return (
         <div>
-             <h1>This is counter commpo</h1>
-      <h2>Counter value : {counter}</h2>
-      <button onClick={() => setCounter(counter + 1)} className='btn btn-primary'>Increase</button>
-      <button onClick={() => setCounter(counter - 1)} className='btn btn-warning'>Decrease</button>
+            <h1>This is counter commpo</h1>
+            <h2>Counter value : {counter}</h2>
+            <button onClick={() => setCounter(counter + 1)} className='btn btn-primary'>Increase</button>
+            <button onClick={() => setCounter(counter - 1)} className='btn btn-warning'>Decrease</button>
         </div>
     );
 };
