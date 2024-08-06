@@ -1,6 +1,6 @@
 
 const About = () => {
-  throw new Error("Error occured as");
+  // throw new Error("Error occured");
 
   return (
     <main className="mt-4">
