@@ -1,5 +1,6 @@
 // import Comments from "@/app/components/Comments";
 import Comments from "@/app/components/Comments";
+import getAllPosts from "@/lib/getAllPosts";
 import getPost from "@/lib/getPost";
 import getPostComment from "@/lib/getPostComment";
 import { Suspense } from "react";
@@ -24,7 +25,7 @@ const PostDetail = async ({ params }) => {
   //   const commentPromise = getPostComment(id);
   //   const [post, comments] = await Promise.all([postPromise, commentPromise]);
 
-  //using react suspense || helps to load small part one by one || also known as progressing rendering which next js prefers
+  //using react suspense || helps to load small part one by one || also known as progressive rendering which next js prefers
   const postPromise = getPost(id);
   const commentPromise = getPostComment(id);
   const post = await postPromise;
@@ -42,3 +43,10 @@ const PostDetail = async ({ params }) => {
 };
 
 export default PostDetail;
+
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({
+    id: post.id.toString(),
+  }));
+}
