@@ -23,8 +23,19 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <nav className="flex justify-between p-3 text-lg font-semibold bg-blue-700">
+          <h2>NEXT</h2>
+          <div className="flex">
+            <h3>about</h3>
+            <h3>service</h3>
+            <h3>contact</h3>
+          </div>
+        </nav>
+        <div className="h-screen">{children}</div>
+        <footer>
+          <h1 className="text-center text-2xl bg-blue-700">Copyrights reserved</h1>
+        </footer>
       </body>
     </html>
   );
-}
+ }
