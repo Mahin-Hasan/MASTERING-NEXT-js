@@ -1,5 +1,18 @@
-import Link from "next/link";
 import React from "react";
+
+const page = ({ params }) => {
+  //   console.log(params.slug);
+  const singleBlog = blogs.find((blog) => blog.slug === params.slug);
+  const { title, description } = singleBlog;
+
+  return (
+    <div>
+      <h1>blog details page</h1>
+      <h2>{title}</h2>
+      <p>{description}</p>
+    </div>
+  );
+};
 
 const blogs = [
   {
@@ -43,21 +56,4 @@ const blogs = [
       "A roundup of the best AI-powered tools that can boost productivity and code efficiency for developers in 2024.",
   },
 ];
-
-const BlogPage = () => {
-  return (
-    <div className="p-24">
-      {blogs?.map((blog) => (
-        <div key={blog.id} className="border-2 p-10">
-          <h3>{blog.title}</h3>
-          <h3>{blog.description}</h3>
-          <button className="bg-blue-700 p-3 rounded-lg text-white font-semibold">
-            <Link href={`/blogs/${blog.slug}`}>View Details</Link>
-          </button>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-export default BlogPage;
+export default page;
