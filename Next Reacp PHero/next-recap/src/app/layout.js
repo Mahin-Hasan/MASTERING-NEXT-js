@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
         <Navbar/>
         <div className="h-screen">{children}</div>
         <footer>
-          <h1 className="text-center text-2xl bg-blue-700">Copyrights reserved</h1>
+          <h1 className="text-center text-2xl bg-blue-700 p-8">Copyrights reserved</h1>
         </footer>
       </body>
     </html>

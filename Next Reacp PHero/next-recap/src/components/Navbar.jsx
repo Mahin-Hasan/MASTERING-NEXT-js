@@ -19,6 +19,10 @@ const Navbar = () => {
       title: "Contact",
       path: "/contact",
     },
+    {
+      title: "Blogs",
+      path: "/blogs",
+    },
   ];
 
   const handler = () => {
