@@ -6,7 +6,7 @@ const PostPage = async () => {
   const postData = await getPosts();
   //   console.log(postData);
   return (
-    <div>
+    <div className="p-10">
       <h1>All Post</h1>
       <div className="grid grid-cols-4 gap-6">
         {postData?.slice(0, 20)?.map(({ id, title, body }) => (
