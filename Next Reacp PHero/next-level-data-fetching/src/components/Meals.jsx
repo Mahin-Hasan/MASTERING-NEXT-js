@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 const Meals = () => {
@@ -18,7 +19,7 @@ const Meals = () => {
       }
 
       const data = await res.json();
-      
+
       if (data.meals) {
         setMeals(data.meals);
       } else {
@@ -57,6 +58,14 @@ const Meals = () => {
       <div className="mt-12 grid grid-cols-3 gap-8">
         {meals?.map((meal) => (
           <div key={meal?.idMeal} className="border-2 p-2">
+            <Image
+              width={128}
+              height={128}
+              className="mx-auto"
+              src={meal?.strMealThumb}
+              alt={meal?.strMeal}
+            />
+
             <h2>{meal?.strMeal}</h2>
             <p>{meal?.strInstructions}</p>
           </div>
