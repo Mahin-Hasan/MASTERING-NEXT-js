@@ -1,6 +1,12 @@
 import Meals from "@/components/Meals";
 import React from "react";
-import styles from './styles.module.css'
+import styles from "./styles.module.css";
+export const metadata = {
+  title: {
+    absolute:"Meals"
+  },
+  description: "Text generated from layout",
+};
 const MealsPage = () => {
   return (
     <div className="p-10">

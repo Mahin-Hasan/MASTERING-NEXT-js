@@ -8,6 +8,10 @@ const Navbar = () => {
   const router = useRouter();
   const links = [
     {
+      title: "About",
+      path: "/about",
+    },
+    {
       title: "Posts",
       path: "/posts",
     },

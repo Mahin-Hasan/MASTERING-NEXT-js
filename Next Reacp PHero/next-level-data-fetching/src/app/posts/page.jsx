@@ -2,6 +2,12 @@ import { getPosts } from "@/services/postApi";
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+  title: "Post",
+  description: "Text generated from post",
+  keywords: ["post", "post page"],
+};
+
 const PostPage = async () => {
   const postData = await getPosts();
   //   console.log(postData);
