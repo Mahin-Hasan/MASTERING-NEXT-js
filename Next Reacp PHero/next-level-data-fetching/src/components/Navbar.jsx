@@ -19,6 +19,10 @@ const Navbar = () => {
       title: "Meals",
       path: "/meals",
     },
+    {
+      title: "Gallery",
+      path: "/gallery",
+    },
   ];
 
   const handler = () => {
@@ -30,7 +34,7 @@ const Navbar = () => {
   return (
     <nav className="flex justify-between items-center p-3 text-lg font-semibold bg-blue-700">
       <h2 className="text-3xl ">
-        <a href="/">NEXT</a>
+        <Link href="/">NEXT</Link>
       </h2>
       <ul className="flex justify-between space-x-4">
         {/* <li><a href="/about">about</a></li> //using standard */}
