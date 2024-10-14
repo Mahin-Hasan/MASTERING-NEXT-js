@@ -27,7 +27,7 @@ const AboutPage = async () => {
 
   return (
     <div className={`${headland.className} min-h-screen px-12 py-24`}>
-      <h1 className="text-2xl">This is about</h1>
+      <h1 className="text-2xl">This is about in build</h1>
       <h2 className="text-xl text-blue-700">Time: {currentTime}</h2>
     </div>
   );
