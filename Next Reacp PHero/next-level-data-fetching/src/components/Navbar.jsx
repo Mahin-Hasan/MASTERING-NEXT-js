@@ -1,5 +1,5 @@
 "use client";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -27,14 +27,22 @@ const Navbar = () => {
       title: "Gallery",
       path: "/gallery",
     },
+    {
+      title: "Dashboard",
+      path: "/dashboard",
+    },
   ];
 
   const handler = () => {
     router.push("/api/auth/signin");
   };
+  const handlerSignup = () => {
+    router.push("/api/auth/signup");
+  };
 
-  if (pathName.includes("dashboard"))
-    return <nav className="bg-cyan-700">Dashboard Layout</nav>;
+  // for dashboard layout
+  // if (pathName.includes("dashboard"))
+  //   return <nav className="bg-cyan-700">Dashboard Layout</nav>;
   return (
     <nav className="flex justify-between items-center p-3 text-lg font-semibold bg-blue-700">
       <h2 className="text-3xl ">
@@ -57,21 +65,29 @@ const Navbar = () => {
       </ul>
       {session.status === "authenticated" ? (
         <div className="flex items-center gap-3">
-          <Image className="rounded-full" height={50} width={50} src={session?.data?.user?.image} alt={session.data.user.name}/>
+          <div className="rounded-full overflow-hidden size-12">
+            {" "}
+            <Image
+              height={50}
+              width={50}
+              src={session?.data?.user?.image}
+              alt={session.data.user.name}
+            />
+          </div>
+
           <div>
             <h6>{session.data.user.name}</h6>
             <h6>{session.data.user.type}</h6>
           </div>
-          <button onClick={handler} className="bg-red-700 p-2 rounded-xl">
+          <button onClick={()=> signOut()} className="bg-red-700 p-2 rounded-xl">
             Logout
           </button>
         </div>
       ) : (
         <div className="flex items-center gap-3">
-          <div>
-            <h6>{session?.data?.user?.name}</h6>
-            <h6>{session?.data?.user?.type}</h6>
-          </div>
+          <button onClick={handlerSignup} className="bg-sky-700 p-2 rounded-xl">
+            signup
+          </button>
           <button onClick={handler} className="bg-blue-900 p-2 rounded-xl">
             Login
           </button>
