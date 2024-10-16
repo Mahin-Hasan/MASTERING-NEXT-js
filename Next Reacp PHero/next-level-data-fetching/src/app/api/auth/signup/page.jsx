@@ -7,6 +7,8 @@ const SingupPage = () => {
     const newUser = {
       name: event.target.name.value,
       email: event.target.email.value,
+      image: event.target.image.value,
+      type: event.target.type.value,
       password: event.target.password.value,
     };
     console.log(newUser);
@@ -46,6 +48,24 @@ const SingupPage = () => {
             className="outline-none border-transparent p-3 text-slate-700"
           />
           <br />
+          <label htmlFor="image">Image</label>
+          <br />
+          <input
+            type="text"
+            name="image"
+            placeholder="your image"
+            className="outline-none border-transparent p-3 text-slate-700"
+          />
+          <br />
+          <label htmlFor="type">Type</label>
+          <br />
+          <select name="type" placeholder="User Type"            className="outline-none border-transparent p-3 text-slate-700"
+          >
+            <option value="admin">Admin</option>
+            <option value="moderator">Moderator</option>
+            <option value="member">Member</option>
+
+          </select>
           <br />
           <label htmlFor="password">Password</label>
           <br />

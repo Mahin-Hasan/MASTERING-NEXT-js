@@ -1,5 +1,8 @@
+import connectDB from "@/lib/connectDB";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
 
 export const authOptions = {
   secret: process.env.NEXT_PUBLIC_AUTH_SECRET,
@@ -29,7 +32,12 @@ export const authOptions = {
           return null;
         }
         if (email) {
-          const currentUser = users.find((user) => user.email === email);
+          //for prev dummy user
+          // const currentUser = users.find((user) => user.email === email);
+          //for mongo
+          const db = await connectDB();
+          const currentUser = await db.collection("users").findOne({ email });
+          console.log("Current User: ", currentUser);
           if (currentUser) {
             if (currentUser.password === password) {
               return currentUser;
@@ -38,6 +46,14 @@ export const authOptions = {
         }
         return null;
       },
+    }),
+    GoogleProvider({
+      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
+    }),
+    GitHubProvider({
+      clientId: process.env.NEXT_PUBLIC_GITHUB_ID,
+      clientSecret: process.env.NEXT_PUBLIC_GITHUB_SECRET,
     }),
   ],
   callbacks: {
@@ -60,6 +76,7 @@ export const authOptions = {
 
 const handler = NextAuth(authOptions);
 
+//dummy
 const users = [
   {
     id: 1,
@@ -68,7 +85,7 @@ const users = [
     type: "admin",
     password: "Rocky@",
     image: "https://picsum.photos/200/300",
-    test:"a dummy"
+    test: "a dummy",
   },
   {
     id: 2,
