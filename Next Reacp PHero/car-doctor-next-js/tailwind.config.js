@@ -14,20 +14,37 @@ module.exports = {
     },
   },
   plugins: [require("daisyui")],
-
   daisyui: {
     themes: [
       {
         carDoctorTheme: {
+          ...require("daisyui/src/theming/themes")["light"],
           primary: "#FF3811",
-          secondary: "#f6d860",
-          accent: "#37cdbe",
-          neutral: "#3d4451",
-          "base-100": "#ffffff",
+          secondary: "teal",
+          ".btn-primary": {
+            color: "#fff",
+          },
+          ".btn-outline.btn-primary:hover": {
+            color: "#fff",
+          },
         },
       },
-      "dark",
-      "cupcake",
+      {
+        darkTheme: {
+          ...require("daisyui/src/theming/themes")["dark"],
+          primary: "#FF3811",
+          secondary: "teal",
+          ".btn-primary": {
+            color: "#fff",
+          },
+          ".btn-outline.btn-primary:hover": {
+            color: "#fff",
+          },
+        },
+      },
+      "light",
     ],
+    // Disable automatic theme detection
+    darkTheme: "darkTheme", // Set the default dark theme
   },
 };
