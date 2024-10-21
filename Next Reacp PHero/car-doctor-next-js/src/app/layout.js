@@ -20,10 +20,11 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  //remove white bg later
   return (
     <html lang="en" data-theme="carDoctorTheme">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}
       >
         <Navbar />
         {children}
