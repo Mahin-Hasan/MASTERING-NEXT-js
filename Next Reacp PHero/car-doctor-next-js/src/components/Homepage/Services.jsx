@@ -2,7 +2,6 @@ import React from "react";
 import { services } from "../../lib/services";
 import ServiceCard from "../cards/ServiceCard";
 
-
 const Services = () => {
   return (
     <div className="min-h-screen text-stone-900">
@@ -18,7 +17,6 @@ const Services = () => {
       <div className="container mx-auto mt-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
         {services?.map((service) => (
           <ServiceCard key={service.id} service={service} />
-
         ))}
       </div>
     </div>
