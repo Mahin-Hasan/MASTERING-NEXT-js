@@ -1,19 +1,33 @@
-"use client"
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { signIn } from "next-auth/react";
 import { BsGithub, BsGoogle } from "react-icons/bs";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
-  const handleLogin = async ()=>{
-
-  }
+  const router = useRouter()
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    const resp = await signIn("credentials", {
+      email,
+      password,
+      redirect:false
+    });
+    console.log('current User',resp);
+    if(resp.status ===200){
+      router.push('/')
+    }
+  };
 
   return (
     <div className="container mx-auto p-24">
       <div className="grid grid-cols-2 gap-12 items-center">
         <div>
-          <Image  
+          <Image
             src="/assets/images/login/login.svg"
             height="540"
             width="540"
@@ -25,32 +39,36 @@ const LoginPage = () => {
             Sign In
           </h4>
           <form onSubmit={handleLogin} action="">
-          <label htmlFor="email" className="text-stone-900">
-            Email
-          </label>
-          <br />
-          <input
-            type="email"
-            name="email"
-            placeholder="your email"
-            className="input input-bordered w-full mt-3"
-          />
-          <br /> <br />
-          <label htmlFor="password" className="text-stone-900 ">
-            Password
-          </label>
-          <br />
-          <input
-            type="password"
-            name="password"
-            placeholder="your password"
-            className="input input-bordered w-full mt-3"
-          />
-          <br /> <br />
-          <button type="submit" className="w-full btn btn-primary">Sign In</button>
+            <label htmlFor="email" className="text-stone-900">
+              Email
+            </label>
+            <br />
+            <input
+              type="email"
+              name="email"
+              placeholder="your email"
+              className="input input-bordered w-full mt-3 text-stone-900 !important"
+            />
+            <br /> <br />
+            <label htmlFor="password" className="text-stone-900 ">
+              Password
+            </label>
+            <br />
+            <input
+              type="password"
+              name="password"
+              placeholder="your password"
+              className="input input-bordered w-full mt-3 text-stone-900 !important"
+            />
+            <br /> <br />
+            <button type="submit" className="w-full btn btn-primary">
+              Sign In
+            </button>
           </form>
           <div>
-            <h6 className="text-center my-6 text-stone-900 font-medium">or Sign in with</h6>
+            <h6 className="text-center my-6 text-stone-900 font-medium">
+              or Sign in with
+            </h6>
             <div className="flex items-center justify-center space-x-3">
               <button className="flex items-center btn rounded-full text-lg btn-outline">
                 <BsGithub />
@@ -59,7 +77,15 @@ const LoginPage = () => {
                 <BsGoogle />
               </button>
             </div>
-            <h6 className="text-center my-6 text-stone-900 font-medium">Not Have account ? <Link className="text-primary font-semibold underline" href="/signup">Sign Up</Link></h6>
+            <h6 className="text-center my-6 text-stone-900 font-medium">
+              Not Have account ?{" "}
+              <Link
+                className="text-primary font-semibold underline"
+                href="/signup"
+              >
+                Sign Up
+              </Link>
+            </h6>
           </div>
         </div>
       </div>

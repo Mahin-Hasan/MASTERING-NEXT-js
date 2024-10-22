@@ -5,7 +5,7 @@ import React from "react";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 
 const SignUpPage = () => {
-  const handleLogin = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
     const newUser = {
@@ -13,7 +13,17 @@ const SignUpPage = () => {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-    console.log(newUser);
+    // console.log(newUser);
+    const resp = await fetch("http://localhost:3000/signup/api", {
+      method: "POST",
+      body: JSON.stringify(newUser),
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    if (resp.status === 200) {
+      e.target.reset();
+    }
   };
   return (
     <div className="container mx-auto p-24">
@@ -30,7 +40,7 @@ const SignUpPage = () => {
           <h4 className="text-3xl font-semibold text-primary text-center mb-12">
             Sign Up
           </h4>
-          <form onSubmit={handleLogin} action="">
+          <form onSubmit={handleSignUp} action="">
             <label htmlFor="name" className="text-stone-900">
               name
             </label>
@@ -39,7 +49,7 @@ const SignUpPage = () => {
               type="text"
               name="name"
               placeholder="your name"
-              className="input input-bordered w-full mt-3"
+              className="input input-bordered w-full mt-3 text-stone-900 !important"
             />{" "}
             <br /> <br />
             <label htmlFor="email" className="text-stone-900">
@@ -50,7 +60,7 @@ const SignUpPage = () => {
               type="email"
               name="email"
               placeholder="your email"
-              className="input input-bordered w-full mt-3"
+              className="input input-bordered w-full mt-3 text-stone-900 !important"
             />
             <br /> <br />
             <label htmlFor="password" className="text-stone-900 ">
@@ -61,7 +71,7 @@ const SignUpPage = () => {
               type="password"
               name="password"
               placeholder="your password"
-              className="input input-bordered w-full mt-3"
+              className="input input-bordered w-full mt-3 text-stone-900 !important"
             />
             <br /> <br />
             <button type="submit" className="w-full btn btn-primary">
