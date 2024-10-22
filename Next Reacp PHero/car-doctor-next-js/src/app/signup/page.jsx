@@ -4,8 +4,17 @@ import Link from "next/link";
 import React from "react";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 
-const page = () => {
-  const handleLogin = async () => {};
+const SignUpPage = () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const newUser = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+    };
+    console.log(newUser);
+  };
   return (
     <div className="container mx-auto p-24">
       <div className="grid grid-cols-2 gap-12 items-center">
@@ -31,7 +40,8 @@ const page = () => {
               name="name"
               placeholder="your name"
               className="input input-bordered w-full mt-3"
-            />
+            />{" "}
+            <br /> <br />
             <label htmlFor="email" className="text-stone-900">
               Email
             </label>
@@ -86,4 +96,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SignUpPage;

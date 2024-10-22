@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 
-const page = () => {
+const LoginPage = () => {
   const handleLogin = async ()=>{
 
   }
@@ -67,4 +67,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default LoginPage;

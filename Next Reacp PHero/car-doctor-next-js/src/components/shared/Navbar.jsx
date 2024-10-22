@@ -91,7 +91,10 @@ const Navbar = () => {
           <div className="flex space-x-3 items-center text-xl">
             <IoCartOutline />
             <IoSearch />
-            <a className="btn btn-primary btn-outline px-8">Appointment</a>
+            <a className="btn btn-primary btn-outline">Appointment</a>
+            <Link href="/login" className="btn btn-primary px-8">
+              login
+            </Link>
           </div>
         </div>
       </div>
