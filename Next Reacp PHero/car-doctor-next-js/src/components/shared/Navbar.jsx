@@ -34,12 +34,30 @@ const Navbar = () => {
             <IoCartOutline />
             <IoSearch />
             <a className="btn btn-primary btn-outline">Appointment</a>
-            {!session.data ? (
+            <div>
+              {session?.status === "authenticated" && (
+                <Image
+                  className="rounded-full"
+                  src={session?.data?.user?.image}
+                  height={50}
+                  width={50}
+                  alt={session?.data?.user?.name}
+                />
+              )}
+            </div>
+            {session?.status === "loading" && <h6>loading...</h6>}
+            {session?.status === "unauthenticated" && (
               <Link href="/login" className="btn btn-primary px-8">
                 login
               </Link>
-            ) : (
-             <button onClick={()=> signOut()} className="btn btn-error text-white">LogOut</button>
+            )}
+            {session?.status === "authenticated" && (
+              <button
+                onClick={() => signOut()}
+                className="btn btn-error text-white"
+              >
+                LogOut
+              </button>
             )}
           </div>
         </div>

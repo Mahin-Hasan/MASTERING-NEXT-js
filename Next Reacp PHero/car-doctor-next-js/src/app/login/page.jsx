@@ -3,8 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { signIn } from "next-auth/react";
-import { BsGithub, BsGoogle } from "react-icons/bs";
 import { useRouter } from "next/navigation";
+import SocialSignin from "@/components/shared/SocialSignin";
 
 const LoginPage = () => {
   const router = useRouter()
@@ -69,14 +69,7 @@ const LoginPage = () => {
             <h6 className="text-center my-6 text-stone-900 font-medium">
               or Sign in with
             </h6>
-            <div className="flex items-center justify-center space-x-3">
-              <button className="flex items-center btn rounded-full text-lg btn-outline">
-                <BsGithub />
-              </button>
-              <button className="flex items-center btn rounded-full text-lg btn-outline">
-                <BsGoogle />
-              </button>
-            </div>
+            <SocialSignin/>
             <h6 className="text-center my-6 text-stone-900 font-medium">
               Not Have account ?{" "}
               <Link

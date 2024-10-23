@@ -1,9 +1,9 @@
 "use client";
+import SocialSignin from "@/components/shared/SocialSignin";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { BsGithub, BsGoogle } from "react-icons/bs";
-
+ 
 const SignUpPage = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -82,14 +82,7 @@ const SignUpPage = () => {
             <h6 className="text-center my-6 text-stone-900 font-medium">
               or Sign in with
             </h6>
-            <div className="flex items-center justify-center space-x-3">
-              <button className="flex items-center btn rounded-full text-lg btn-outline">
-                <BsGithub />
-              </button>
-              <button className="flex items-center btn rounded-full text-lg btn-outline">
-                <BsGoogle />
-              </button>
-            </div>
+            <SocialSignin/>
             <h6 className="text-center my-6 text-stone-900 font-medium">
               Already Have account ?{" "}
               <Link
