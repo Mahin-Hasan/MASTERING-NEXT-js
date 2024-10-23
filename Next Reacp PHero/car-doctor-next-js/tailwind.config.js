@@ -7,13 +7,16 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require('daisyui'),
+  ],
   daisyui: {
     themes: [
       {
@@ -21,30 +24,17 @@ module.exports = {
           ...require("daisyui/src/theming/themes")["light"],
           primary: "#FF3811",
           secondary: "teal",
+
           ".btn-primary": {
-            color: "#fff",
+            "color" : "#fff"
           },
+
           ".btn-outline.btn-primary:hover": {
-            color: "#fff",
+            "color" : "#fff"
           },
         },
       },
-      {
-        darkTheme: {
-          ...require("daisyui/src/theming/themes")["dark"],
-          primary: "#FF3811",
-          secondary: "teal",
-          ".btn-primary": {
-            color: "#fff",
-          },
-          ".btn-outline.btn-primary:hover": {
-            color: "#fff",
-          },
-        },
-      },
-      "light",
+      "dark",
     ],
-    // Disable automatic theme detection
-    darkTheme: "darkTheme", // Set the default dark theme
   },
 };

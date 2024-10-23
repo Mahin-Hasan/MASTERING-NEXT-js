@@ -16,7 +16,10 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "Car Doctor NEXT js",
+  title: {
+    default:"Car Doctor NEXT",
+    template: "%s | Car Doctor"
+  },
   description: "Car Repairing Workshop",
 };
 
