@@ -19,10 +19,10 @@ const CheckoutPage = ({ params }) => {
     const newBooking = {
       name: data?.user?.name,
       email: data?.user?.email,
-      address: event.target.address.value,
+      address: event.target.address.value,  
       phone: event.target.phone.value,
       date: event.target.date.value,
-      serviceTiele: title,
+      serviceTitle: title,
       serviceID: _id,
       price: price,
     };

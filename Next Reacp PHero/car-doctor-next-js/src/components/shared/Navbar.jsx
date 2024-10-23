@@ -79,6 +79,10 @@ const navLinks = [
     path: "/services",
   },
   {
+    title: "MyBookings",
+    path: "/my-bookings",
+  },
+  {
     title: "Blog",
     path: "/blog",
   },
