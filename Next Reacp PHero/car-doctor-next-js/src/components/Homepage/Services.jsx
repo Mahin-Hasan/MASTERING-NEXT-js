@@ -1,8 +1,10 @@
 import React from "react";
-import { services } from "../../lib/services";
+// import { services } from "../../lib/services"; | for fake data
 import ServiceCard from "../cards/ServiceCard";
+import { getServices } from "@/services/getServices";
 
-const Services = () => {
+const Services = async () => {
+  const { services } = await getServices();
   return (
     <div className="min-h-screen text-stone-900">
       <div className="text-center container mx-auto">
