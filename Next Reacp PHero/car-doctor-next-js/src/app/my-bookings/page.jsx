@@ -6,18 +6,37 @@ import React, { useEffect, useState } from "react";
 
 const MyBookingsPage = () => {
   const session = useSession();
-  const [bookings,setBookings]= useState([])
+  const [bookings, setBookings] = useState([]);
   const loadData = async () => {
     const resp = await fetch(
       `http://localhost:3000/my-bookings/api/${session?.data?.user?.email}`
     );
     const data = await resp.json();
-    setBookings(data.myBookings)
+    setBookings(data.myBookings);
   };
-console.log(bookings);
-  useEffect(()=>{
-    loadData()
-  },[session])
+
+  // console.log(bookings);
+  const handleDelete = async (id) => {
+    const deleted = await fetch(
+      `http://localhost:3000/my-bookings/api/delete-booking/${id}`,
+      { method: "DELETE" }
+    );
+    const resp = await deleted.json();
+    console.log(resp);
+    if (resp?.response?.deletedCount > 0) {
+      loadData();
+    }
+
+    // console.log(deleted);
+    //will not work refetch
+    // if (deleted?.response?.deletedCount > 0) {
+    //   loadData();
+    // }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, [session]);
   return (
     <div className="container mx-auto">
       {/* <ToastContainer/> */}
@@ -51,9 +70,9 @@ console.log(bookings);
             </thead>
             <tbody>
               {/* row 1 */}
-              {bookings?.map(({ serviceTitle, _id, date, price },idx) => (
+              {bookings?.map(({ serviceTitle, _id, date, price }, idx) => (
                 <tr key={_id}>
-                  <th className="text-stone-900">{idx+1}</th>
+                  <th className="text-stone-900">{idx + 1}</th>
                   <td className="text-stone-900">{serviceTitle}</td>
                   <td className="text-stone-900">{price}</td>
                   <td className="text-stone-900">{date}</td>
@@ -63,7 +82,7 @@ console.log(bookings);
                         <button class="btn btn-primary">Edit</button>
                       </Link>
                       <button
-                        //   onClick={() => handleDelete(_id)}
+                        onClick={() => handleDelete(_id)}
                         class="btn btn-error"
                       >
                         Delete
