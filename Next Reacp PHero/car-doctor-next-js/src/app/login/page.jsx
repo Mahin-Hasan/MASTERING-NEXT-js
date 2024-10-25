@@ -3,11 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import SocialSignin from "@/components/shared/SocialSignin";
 
 const LoginPage = () => {
-  const router = useRouter()
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const path = searchParams.get("redirect"); // as saved in middleware
   const handleLogin = async (event) => {
     event.preventDefault();
     const email = event.target.email.value;
@@ -15,11 +17,13 @@ const LoginPage = () => {
     const resp = await signIn("credentials", {
       email,
       password,
-      redirect:false
+      redirect: true,
+      callbackUrl: path ? path : "/",
+      // redirect:false
     });
-    console.log('current User',resp);
-    if(resp.status ===200){
-      router.push('/')
+    console.log("current User", resp);
+    if (resp.status === 200) {
+      router.push("/");
     }
   };
 
@@ -69,7 +73,7 @@ const LoginPage = () => {
             <h6 className="text-center my-6 text-stone-900 font-medium">
               or Sign in with
             </h6>
-            <SocialSignin/>
+            <SocialSignin />
             <h6 className="text-center my-6 text-stone-900 font-medium">
               Not Have account ?{" "}
               <Link
