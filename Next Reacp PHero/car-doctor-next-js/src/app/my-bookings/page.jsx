@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const MyBookingsPage = () => {
   const session = useSession();
@@ -18,11 +19,13 @@ const MyBookingsPage = () => {
   // console.log(bookings);
   const handleDelete = async (id) => {
     const deleted = await fetch(
-      `http://localhost:3000/my-bookings/api/delete-booking/${id}`,
+      `http://localhost:3000/my-bookings/api/booking/${id}`,
       { method: "DELETE" }
     );
     const resp = await deleted.json();
     console.log(resp);
+
+    toast.error(resp?.message);
     if (resp?.response?.deletedCount > 0) {
       loadData();
     }

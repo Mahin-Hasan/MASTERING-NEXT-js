@@ -1,55 +1,54 @@
 "use client";
-import { getServiceDetails } from "@/services/getServices";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
-const CheckoutPage = ({ params }) => {
+const UpdateBooking = ({ params }) => {
   const { data } = useSession();
-  const [service, setService] = useState({});
-  const loadService = async () => {
-    const details = await getServiceDetails(params.id);
-    setService(details.service);
-  };
-  const { title, img, price, _id, description, facility } = service || {};
-
-  // const details = await getServiceDetails(params.id); ||used when server component
-  const handleBooking = async (event) => {
-    event.preventDefault();
-    const newBooking = {
-      name: data?.user?.name,
-      email: data?.user?.email,
-      address: event.target.address.value,
-      phone: event.target.phone.value,
-      date: event.target.date.value,
-      serviceTitle: title,
-      serviceID: _id,
-      price: price,
-    };
-
-    const resp = await fetch(`http://localhost:3000/checkout/api/new-booking`, {
-      method: "POST",
-      body: JSON.stringify(newBooking),
-      headers: {
-        "content-type": "applicatoin/json",
-      },
-    });
-
-    const response = await resp?.json();
-    toast.success(response?.message);
-    // console.log(resp);
+  const [booking, setBooking] = useState([]);
+  const loadBooking = async () => {
+    const bookingDetail = await fetch(
+      `http://localhost:3000/my-bookings/api/booking/${params.id}`
+    );
+    const data = await bookingDetail.json();
+    console.log(data);
+    setBooking(data.data);
   };
 
   useEffect(() => {
-    loadService();
+    loadBooking();
   }, [params]);
+  console.log(booking);
+
+  const handleUpdateBooking = async (event) => {
+    event.preventDefault();
+    const updatedBooking = {
+      date: event.target.date.value,
+      phone: event.target.phone.value,
+      address: event.target.address.value,
+    };
+
+    const resp = await fetch(
+      `http://localhost:3000/my-bookings/api/booking/${params.id}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(updatedBooking),
+        headers: {
+          "content-type": "applicatoin/json",
+        },
+      }
+    );
+    if (resp.status === 200) {
+      toast.success("Update Successful");
+    }
+  };
   return (
     <div className="container mx-auto">
       <div className="relative  h-72">
         <Image
           className="absolute h-72 w-full left-0 top-0 object-cover"
-          src={img}
+          src={""}
           alt="service"
           width={1920}
           height={1080}
@@ -57,12 +56,12 @@ const CheckoutPage = ({ params }) => {
         />
         <div className="absolute h-full left-0 top-0 flex items-center justify-center bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0)] ">
           <h1 className="text-white text-3xl font-bold flex justify-center items-center ml-8">
-            Checkout {title}
+            Update Booking
           </h1>
         </div>
       </div>
-      <div className="my-12 bg-stone-300 p-12">
-        <form onSubmit={handleBooking}>
+      <div className="my-12 bg-slate-300 p-12">
+        <form onSubmit={handleUpdateBooking}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="form-control">
               <label className="label">
@@ -80,7 +79,7 @@ const CheckoutPage = ({ params }) => {
                 <span className="label-text">Date</span>
               </label>
               <input
-                defaultValue={new Date().getDate()}
+                defaultValue={booking.date}
                 type="date"
                 name="date"
                 className="input input-bordered text-stone-900"
@@ -103,7 +102,7 @@ const CheckoutPage = ({ params }) => {
                 <span className="label-text">Due amount</span>
               </label>
               <input
-                defaultValue={price}
+                defaultValue={booking.price}
                 readOnly
                 type="text"
                 name="price"
@@ -115,6 +114,7 @@ const CheckoutPage = ({ params }) => {
                 <span className="label-text">Phone</span>
               </label>
               <input
+                defaultValue={booking.phone}
                 required
                 type="text"
                 name="phone"
@@ -127,6 +127,7 @@ const CheckoutPage = ({ params }) => {
                 <span className="label-text">Present Address</span>
               </label>
               <input
+                defaultValue={booking.address}
                 type="text"
                 name="address"
                 placeholder="Your Address"
@@ -147,4 +148,4 @@ const CheckoutPage = ({ params }) => {
   );
 };
 
-export default CheckoutPage;
+export default UpdateBooking;
