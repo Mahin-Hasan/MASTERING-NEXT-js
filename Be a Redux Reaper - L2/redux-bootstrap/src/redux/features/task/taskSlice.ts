@@ -23,6 +23,7 @@ const createTask = (taskData: DraftTask): ITask => {
     ...taskData,
   };
 };
+// write update task code here ....
 
 const taskSlice = createSlice({
   name: "task",
@@ -48,15 +49,31 @@ const taskSlice = createSlice({
     deleteTask: (state, action: PayloadAction<string>) => {
       state.tasks = state.tasks.filter((task) => task.id !== action.payload); // je id click kora hoise oita baad e shob gula thakbe
     },
+    updateFilter: (
+      state,
+      action: PayloadAction<"all" | "high" | "medium" | "low">
+    ) => {
+      state.filter = action.payload;
+    },
   },
 });
 
 export const selectTasks = (state: RootState) => {
-  return state.todo.tasks;
+  const filter = state.todo.filter;
+  if (filter === "low") {
+    return state.todo.tasks.filter((task) => task.priority === "Low");
+  } else if (filter === "medium") {
+    return state.todo.tasks.filter((task) => task.priority === "Medium");
+  } else if (filter === "high") {
+    return state.todo.tasks.filter((task) => task.priority === "High");
+  } else {
+    return state.todo.tasks;
+  }
 };
 export const selectFilter = (state: RootState) => {
   return state.todo.filter;
 };
-export const { addTask, toggleCompleteState, deleteTask } = taskSlice.actions;
+export const { addTask, toggleCompleteState, deleteTask, updateFilter } =
+  taskSlice.actions;
 
 export default taskSlice.reducer;
