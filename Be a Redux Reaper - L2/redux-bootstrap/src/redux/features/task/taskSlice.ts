@@ -1,7 +1,7 @@
 import { RootState } from "@/redux/store";
 import { ITask } from "@/types";
 import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 //creating interface for type safety
 
 interface InitialState {
@@ -24,7 +24,13 @@ const createTask = (taskData: DraftTask): ITask => {
   };
 };
 // write update task code here ....
-
+// type updateTaskType = Partial<ITask>;
+// const updateTask = (updateData: updateTaskType) => {
+//   return {
+//     id: nanoid(),
+//     ...updateData,
+//   };
+// };
 const taskSlice = createSlice({
   name: "task",
   initialState,
@@ -39,6 +45,10 @@ const taskSlice = createSlice({
       // };
       state.tasks.push(taskData);
     },
+    // updateTask: (state, action: PayloadAction<updateTaskType>) => {
+    //   const updateData = updateTask(action.payload);
+    //   state.tasks.push(updateData);
+    // },
     toggleCompleteState: (state, action: PayloadAction<string>) => {
       state.tasks.forEach((task) =>
         task.id === action.payload

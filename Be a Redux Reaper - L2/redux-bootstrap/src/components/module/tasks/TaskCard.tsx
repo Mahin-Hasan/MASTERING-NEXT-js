@@ -5,7 +5,8 @@ import {
   deleteTask,
   toggleCompleteState,
 } from "@/redux/features/task/taskSlice";
-import { useAppDispatch } from "@/redux/hook";
+import { selectUsers } from "@/redux/features/user/userSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { ITask } from "@/types";
 import { Trash2 } from "lucide-react";
 
@@ -15,8 +16,9 @@ interface IProps {
 
 const TaskCard = ({ task }: IProps) => {
   const dispatch = useAppDispatch();
-
-  const { title, description } = task;
+  const { title, description, assignedTo } = task;
+  const users = useAppSelector(selectUsers);
+  const assignedUser = users.find((user) => user.id === assignedTo);
   return (
     <div className="border px-5 py-3 rounded-md">
       <div className="flex justify-between items-center">
@@ -52,6 +54,9 @@ const TaskCard = ({ task }: IProps) => {
           {/* here in toggole func we are not passing object we are only passing the id */}
         </div>
       </div>
+      <p className="mt-5">
+        Asigned to -{assignedUser ? assignedUser.name : "No One"}
+      </p>
       <p className="mt-5">{description}</p>
     </div>
   );
