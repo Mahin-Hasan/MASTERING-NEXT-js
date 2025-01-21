@@ -1,6 +1,7 @@
 import { RootState } from "@/redux/store";
 import { ITask } from "@/types";
 import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit";
+import { removeUser } from "../user/userSlice";
 // import { v4 as uuidv4 } from "uuid";
 //creating interface for type safety
 
@@ -14,13 +15,17 @@ const initialState: InitialState = {
   filter: "all",
 };
 
-type DraftTask = Pick<ITask, "title" | "description" | "priority" | "dueDate">;
+type DraftTask = Pick<
+  ITask,
+  "title" | "description" | "priority" | "dueDate" | "assignedTo"
+>;
 
 const createTask = (taskData: DraftTask): ITask => {
   return {
+    ...taskData,
     id: nanoid(),
     isCompleted: false,
-    ...taskData,
+    assignedTo: taskData.assignedTo ? taskData.assignedTo : null,
   };
 };
 // write update task code here ....
@@ -57,7 +62,7 @@ const taskSlice = createSlice({
       );
     },
     deleteTask: (state, action: PayloadAction<string>) => {
-      state.tasks = state.tasks.filter((task) => task.id !== action.payload); // je id click kora hoise oita baad e shob gula thakbe
+      state.tasks = state.tasks.filter((task) => task.id !== action.payload); // filtering without the clicked id 
     },
     updateFilter: (
       state,
@@ -65,6 +70,13 @@ const taskSlice = createSlice({
     ) => {
       state.filter = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    // to maintain a relation with other feature slice here we are using to set assogned user in taskSlice to null if user is removed in the user slice
+    builder.addCase(removeUser, (state, action) => {
+      state.tasks.forEach((task) =>
+        task.assignedTo === action.payload ? (task.assignedTo = null) : task);
+    });
   },
 });
 

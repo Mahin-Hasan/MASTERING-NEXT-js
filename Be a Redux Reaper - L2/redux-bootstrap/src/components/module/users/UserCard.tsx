@@ -11,10 +11,10 @@ interface IProps {
 const UserCard = ({ user }: IProps) => {
   const dispatch = useAppDispatch();
   return (
-    <div className="border px-5 py-3 rounded-md">
+    <div className="border-2 border-green-500 p-5 rounded-md">
       <div className="flex justify-between items-center">
         <div className="flex gap-2 items-center">
-          <h1>Name: {user.name}</h1>
+          <h1>{user.name}</h1>
         </div>
         <div className="flex gap-3 items-center">
           <Button
