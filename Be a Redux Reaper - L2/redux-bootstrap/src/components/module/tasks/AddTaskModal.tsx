@@ -31,10 +31,11 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { addTask } from "@/redux/features/task/taskSlice";
+import { useCreateTaskMutation } from "@/redux/api/baseApi";
+// import { addTask } from "@/redux/features/task/taskSlice";
 import { selectUsers } from "@/redux/features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { ITask } from "@/types";
+import { useAppSelector } from "@/redux/hook";
+// import { ITask } from "@/types";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
@@ -47,14 +48,22 @@ export function AddTaskModal() {
   const users = useAppSelector(selectUsers);
 
   const form = useForm();
+  const [createTask, { data, isLoading, isError }] = useCreateTaskMutation();
+  // const dispatch = useAppDispatch();
+  console.log("Outside submit func", data);
 
-  const dispatch = useAppDispatch();
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    // dispatch(addTask(data as ITask));
+    const taskData = {
+      ...data,
+      isCompleted: false,
+      // dueDate: new Date(data.dueDate).toISOString(),
+    };
+    const res = await createTask(taskData).unwrap(); // must use unwrap or else it will give error
+    console.log("Inside submit func", res);
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    // console.log(data);
-    dispatch(addTask(data as ITask));
     setOpen(false);
-    form.reset()
+    form.reset();
   };
 
   return (

@@ -31,9 +31,11 @@ export function AddUserModal() {
 
   const dispatch = useAppDispatch();
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     // console.log(data);
-    dispatch(addUser(data as IUser));
+    dispatch(addUser(data as IUser)); //| for taskSlice
+    
     setOpen(false);
     form.reset();
   };
